@@ -1,5 +1,11 @@
 # My Mail
 
+## Setup
+Place this project in the custom addons folder and start by passing the folder to odoo with something like this:
+```
+odoo-bin -d mydb -u my_mail --addons-path=addons,custom_addons
+```
+
 ## Features
 * Considers scheduled reports, bypass check and followers.
 * Grouped list displaying toggles to opt out/in and frequencies, in the user form.
