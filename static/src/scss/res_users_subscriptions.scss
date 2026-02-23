@@ -1,0 +1,37 @@
+.o_form_view {
+    .o_field_widget[name="user_mail_subscription_ids"],
+    .o_field_widget[data-name="user_mail_subscription_ids"] {
+        .o_field_x2many_list_row_add,
+        .o_list_record_remove,
+        .o_list_button_add,
+        .o_x2m_control_panel .btn,
+        .o_x2m_control_panel .o_cp_buttons {
+            display: none !important;
+        }
+
+        tr.o_my_mail_group_row td {
+            font-weight: 600;
+            opacity: 1;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--o-gray-200);
+            color: var(--o-gray-900);
+            cursor: pointer;
+        }
+
+        tr.o_my_mail_group_row .o_my_mail_group_toggle::before {
+            content: "\25BC";
+            display: inline-block;
+            margin-right: 6px;
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+        }
+
+        tr.o_my_mail_group_row[data-group-collapsed="true"] .o_my_mail_group_toggle::before {
+            transform: rotate(-90deg);
+        }
+
+        tr.o_data_row.o_my_mail_group_row_hidden {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================ -->
+    <!-- Mail Template Form View - Subscription Fields -->
+    <!-- ============================================ -->
+    
+    <record id="view_mail_template_form_inherit_subscription" model="ir.ui.view">
+        <field name="name">mail.template.form.inherit.subscription</field>
+        <field name="model">mail.template</field>
+        <field name="inherit_id" ref="mail.email_template_form"/>
+        <field name="arch" type="xml">
+            <!-- Add smart button for subscriptions -->
+            <xpath expr="//sheet" position="inside">
+                <div class="oe_button_box" name="button_box">
+                    <field name="policy_is_subscribable" invisible="1"/>
+                    <button name="action_open_template_subscriptions" 
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-envelope"
+                            invisible="not policy_is_subscribable">
+                        <field string="Subscriptions" 
+                               name="subscription_count" 
+                               widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
+            
+            <!-- Add Subscriptions tab to the notebook -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Subscriptions" name="subscriptions">
+                    <group>
+                        <field name="is_user_subscribable"
+                            string="User Subscription Possible"
+                            readonly="1"
+                            help="Computed from subscription policy."/>
+                        <field name="subscription_policy_id" 
+                           string="Subscription Policy"
+                           domain="[('id','in', applicable_policy_ids)]"
+                           help="Controls subscription behavior for this template"
+                           options="{'no_create': True}"/>
+                        <field name="template_group"
+                            string="Template Group"
+                            help="Organizational group for categorizing templates in user notification tabs"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

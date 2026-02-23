@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_user_mail_subscription_list_user" model="ir.ui.view">
+        <field name="name">user.mail.subscription.list.user</field>
+        <field name="model">user.mail.subscription</field>
+        <field name="arch" type="xml">
+            <list string="User Subscriptions" default_group_by="template_group_label" create="false" delete="false">
+            <header>
+                <button name="action_bulk_subscribe"
+                    type="object"
+                    string="Subscribe Selected"
+                    class="btn-primary"/>
+                <button name="action_bulk_unsubscribe"
+                    type="object"
+                    string="Unsubscribe Selected"
+                    class="btn-secondary"/>
+                <button name="action_bulk_reset_to_default"
+                    type="object"
+                    string="Reset Selected"
+                    class="btn-secondary"/>
+            </header>
+                <field name="template_group_label" invisible="1"/>
+                <field name="template_name" readonly="1"
+                    column_invisible="context.get('from_template_view') or context.get('active_model') == 'mail.template'"/>
+                <field name="subscription_policy_label" readonly="1" string="Category"/>
+                <field name="is_subscribed" widget="boolean_toggle"/>
+                <field name="frequency_immediate" string="Immediate" widget="boolean_toggle"/>
+                <field name="frequency_daily" string="Daily" widget="boolean_toggle"/>
+                <field name="frequency_weekly" string="Weekly" widget="boolean_toggle"/>
+                <field name="frequency_monthly" string="Monthly" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_user_mail_subscription_list_template" model="ir.ui.view">
+        <field name="name">user.mail.subscription.list.template</field>
+        <field name="model">user.mail.subscription</field>
+        <field name="arch" type="xml">
+            <list string="Template Subscriptions" default_group_by="user_role_label" create="false" delete="false">
+            <header>
+                <button name="action_bulk_subscribe"
+                    type="object"
+                    string="Subscribe Selected"
+                    class="btn-primary"/>
+                <button name="action_bulk_unsubscribe"
+                    type="object"
+                    string="Unsubscribe Selected"
+                    class="btn-secondary"/>
+                <button name="action_bulk_reset_to_default"
+                    type="object"
+                    string="Reset Selected"
+                    class="btn-secondary"/>
+            </header>
+                <field name="template_group_label" invisible="1"/>
+                <field name="user_id" readonly="1"/>
+                <field name="subscription_policy_label" readonly="1" string="Category"/>
+                <field name="is_subscribed" widget="boolean_toggle"/>
+                <field name="frequency_immediate" string="Immediate" widget="boolean_toggle"/>
+                <field name="frequency_daily" string="Daily" widget="boolean_toggle"/>
+                <field name="frequency_weekly" string="Weekly" widget="boolean_toggle"/>
+                <field name="frequency_monthly" string="Monthly" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_user_mail_subscription_form_user" model="ir.ui.view">
+        <field name="name">user.mail.subscription.form.user</field>
+        <field name="model">user.mail.subscription</field>
+        <field name="arch" type="xml">
+            <form string="User Subscription">
+                <sheet>
+                    <group>
+                        <field name="template_id" readonly="1"
+                            column_invisible="context.get('from_template_view') or context.get('active_model') == 'mail.template'"/>
+                        <field name="subscription_policy_label" readonly="1" string="Category"/>
+                        <field name="is_subscribed"/>
+                    </group>
+                    <group string="Frequencies">
+                        <field name="frequency_immediate" widget="boolean_toggle"/>
+                        <field name="frequency_daily" widget="boolean_toggle"/>
+                        <field name="frequency_weekly" widget="boolean_toggle"/>
+                        <field name="frequency_monthly" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- User subscription management tab -->
+    <record id="view_res_users_form_inherit_my_mail_subscriptions" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.my.mail.subscriptions</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_user_mail_subscriptions"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-envelope"
+                        invisible="not id">
+                    <field name="subscribed_template_count" string="Subscribed Templates" widget="statinfo"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Subscriptions" name="my_mail_notifications" invisible="not id">
+                    <field name="user_mail_subscription_ids"
+                        widget="my_mail_grouped_x2many"
+                        create="0"
+                        delete="0" 
+                        options="{'no_create': True, 'no_create_edit': True, 'no_open': True, 'no_delete': True}">
+
+                        <list create="false"
+                            delete="false"
+                            editable="bottom"
+                            default_group_by="template_group_label"
+                            default_order="subscription_policy_id, template_name"
+                            string="E-Mail Templates">
+
+                            <field name="template_group_label" column_invisible="1"/>
+                            <field name="template_name" readonly="1"/>
+                            <field name="subscription_policy_label" readonly="1" string="Category"/>
+                            <field name="is_subscribed"
+                                string="Subscribed"
+                                widget="boolean_toggle"/>
+                            <field name="frequency_immediate"
+                                string="Immediate"
+                                widget="boolean_toggle"/>
+                            <field name="frequency_daily"
+                                string="Daily"
+                                widget="boolean_toggle"/>
+                            <field name="frequency_weekly"
+                                string="Weekly"
+                                widget="boolean_toggle"/>
+                            <field name="frequency_monthly"
+                                string="Monthly"
+                                widget="boolean_toggle"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

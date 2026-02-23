@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_mail_subscription_system,user.mail.subscription system,model_user_mail_subscription,base.group_system,1,1,1,1
+access_user_mail_subscription_user,user.mail.subscription user,model_user_mail_subscription,base.group_user,1,1,1,1
+access_mail_subscription_policy_system,mail.subscription.policy system,model_mail_subscription_policy,base.group_system,1,1,1,1
+access_mail_subscription_policy_user,mail.subscription.policy user,model_mail_subscription_policy,base.group_user,1,0,0,0
+access_mail_subscription_frequency_system,mail.subscription.frequency system,model_mail_subscription_frequency,base.group_system,1,1,1,1
+access_mail_subscription_frequency_user,mail.subscription.frequency user,model_mail_subscription_frequency,base.group_user,1,0,0,0
