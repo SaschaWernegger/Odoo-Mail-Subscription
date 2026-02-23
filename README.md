@@ -5,6 +5,7 @@ Place this project in the custom addons folder and start by passing the folder t
 ```
 odoo-bin -d mydb -u my_mail --addons-path=addons,custom_addons
 ```
+and install the My Mail app.
 
 ## Features
 * Considers scheduled reports, bypass check and followers.
